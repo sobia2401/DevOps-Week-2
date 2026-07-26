@@ -1,7 +1,23 @@
-from flask import Flask
-app=Flask(__name__)
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
 @app.route('/')
 def index():
-    return ("hello welcome")
-if __name__=='__main__':
+    return render_template('register.html')
+
+@app.route('/register', methods=['POST'])
+def register():
+    name = request.form['name']
+    student_id = request.form['studentid']
+    email = request.form['email']
+    year = request.form['year']
+
+    return render_template(
+        'successful.html',
+        name=name,
+        year=year
+    )
+
+if __name__ == '__main__':
     app.run(debug=True)
